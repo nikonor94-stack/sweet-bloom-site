@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Bloom — Интернет-магазин тортов</title>
+<style>
+:root{
+  --bg:#fff8f5; --card:#ffffff; --text:#3f3030; --muted:#806d6d;
+  --accent:#c96f82; --accent2:#f3c7cf; --dark:#342525;
+  --shadow:0 12px 35px rgba(75,42,42,.10);
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{position:sticky;top:0;z-index:10;background:rgba(255,248,245,.94);backdrop-filter:blur(10px);border-bottom:1px solid #f0dddd}
+.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:16px 22px}
+.logo{font-size:25px;font-weight:800;color:var(--accent)}
+nav a{color:var(--text);text-decoration:none;margin-left:22px;font-weight:600}
+nav a:hover{color:var(--accent)}
+.hero{max-width:1180px;margin:auto;padding:80px 22px 65px;display:grid;grid-template-columns:1.1fr .9fr;gap:45px;align-items:center}
+.badge{display:inline-block;background:var(--accent2);color:#743c49;padding:7px 14px;border-radius:30px;font-weight:700;font-size:14px}
+h1{font-size:clamp(42px,6vw,70px);line-height:1.05;margin:18px 0}
+.hero p{font-size:18px;color:var(--muted);max-width:620px}
+.btn{display:inline-block;background:var(--accent);color:white;text-decoration:none;border:0;padding:13px 22px;border-radius:12px;font-weight:700;cursor:pointer;margin-top:12px}
+.btn:hover{filter:brightness(.94)}
+.hero-art{min-height:390px;border-radius:32px;background:linear-gradient(145deg,#f7d9df,#fff,#efc0ca);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:120px}
+section{max-width:1180px;margin:auto;padding:65px 22px}
+.section-title{text-align:center;margin-bottom:35px}
+.section-title h2{font-size:36px;margin:0 0 8px}
+.section-title p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid #f2e3e3}
+.cake-img{height:210px;background:#f8e0e3;display:flex;align-items:center;justify-content:center;overflow:hidden}.cake-img img{width:100%;height:100%;object-fit:cover;display:block}
+.card-body{padding:20px}
+.card h3{margin:0 0 7px;font-size:21px}
+.card p{color:var(--muted);margin:0 0 15px}
+.price{font-size:20px;font-weight:800;color:var(--accent)}
+.about{background:#fff;border-radius:28px;padding:40px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.about h3{font-size:26px;margin-top:0}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.feature{padding:18px;background:#fff7f7;border-radius:15px}
+.faq{max-width:850px;margin:auto}
+details{background:#fff;border-radius:15px;margin:12px 0;padding:18px 20px;box-shadow:0 5px 18px rgba(75,42,42,.07)}
+summary{cursor:pointer;font-weight:700}
+footer{background:var(--dark);color:#fff;padding:40px 22px;text-align:center}
+footer p{color:#dbcaca}
+.modal{display:none;position:fixed;inset:0;background:rgba(30,20,20,.55);z-index:30;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.modal-box{background:white;border-radius:22px;padding:30px;max-width:480px;width:100%;position:relative}
+.close{position:absolute;right:18px;top:12px;border:0;background:none;font-size:27px;cursor:pointer}
+input,textarea{width:100%;padding:12px;margin:7px 0 13px;border:1px solid #e7d5d5;border-radius:10px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+@media(max-width:800px){
+ .hero,.about{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}
+ nav a{margin-left:10px;font-size:14px}.hero{padding-top:50px}
+}
+@media(max-width:550px){
+ .grid{grid-template-columns:1fr}.nav{flex-direction:column;gap:10px}
+ .hero-art{min-height:280px;font-size:85px}.features{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">Sweet Bloom</div>
+    <nav>
+      <a href="#cakes">Торты</a>
+      <a href="#about">О нас</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <span class="badge">Интернет-магазин тортов</span>
+    <h1>Торт, который хочется запомнить</h1>
+    <p>Авторские торты с продуманными начинками и красивым декором. Выберите свой вариант из коллекции Sweet Bloom.</p>
+    <a class="btn" href="#cakes">Смотреть торты</a>
+  </div>
+  <div class="hero-art">🎂</div>
+</section>
+
+<section id="cakes">
+  <div class="section-title">
+    <h2>Наша коллекция</h2>
+    <p>15 вариантов тортов для разных вкусов и поводов</p>
+  </div>
+  <div class="grid" id="cakeGrid"></div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <div>
+      <h3>О нас</h3>
+      <p>Sweet Bloom — концептуальный интернет-магазин тортов, созданный для тех, кто ценит сочетание вкуса, эстетики и индивидуального подхода.</p>
+      <p>Мы уделяем внимание начинкам, оформлению и единому визуальному стилю каждой коллекции.</p>
+    </div>
+    <div class="features">
+      <div class="feature"><b>15</b><br>видов тортов</div>
+      <div class="feature"><b>Свежие</b><br>ингредиенты</div>
+      <div class="feature"><b>Авторский</b><br>декор</div>
+      <div class="feature"><b>Индивидуальный</b><br>подход</div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="section-title">
+    <h2>Часто задаваемые вопросы</h2>
+    <p>Ответы на основные вопросы покупателей</p>
+  </div>
+  <div class="faq">
+    <details><summary>Как оформить заказ?</summary><p>Выберите торт и нажмите «Заказать». В форме укажите имя, контакты и пожелания.</p></details>
+    <details><summary>Можно ли изменить оформление?</summary><p>Да. Пожелания по декору можно указать в форме заказа.</p></details>
+    <details><summary>Можно ли заказать торт к определённой дате?</summary><p>Да, укажите желаемую дату при оформлении заказа.</p></details>
+    <details><summary>Есть ли возможность выбрать начинку?</summary><p>Для некоторых вариантов доступны дополнительные пожелания по начинке. Уточните их в комментарии к заказу.</p></details>
+    <details><summary>Как связаться с магазином?</summary><p>Используйте форму заказа или контактные данные, указанные в разделе «О нас».</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <h2>Sweet Bloom</h2>
+  <p>Интернет-магазин тортов • Лабораторная работа №4</p>
+  <p>© 2026 Sweet Bloom</p>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <h2 id="modalTitle">Заказать торт</h2>
+    <form onsubmit="submitOrder(event)">
+      <label>Ваше имя</label>
+      <input required placeholder="Введите имя">
+      <label>Контакт</label>
+      <input required placeholder="Телефон или e-mail">
+      <label>Пожелания</label>
+      <textarea placeholder="Дата, оформление, начинка..."></textarea>
+      <button class="btn" type="submit">Отправить заявку</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const cakes = [["Красный бархат", "Нежный красный бисквит с лёгкими шоколадными нотами и воздушным сливочно-сырным кремом.", "2 200 ₸", "https://rs-menus-api.roocdn.com/images/d4d78a54-3f66-42fb-97cb-2d5b3af55ef7/image.jpeg?fit=crop&height=630&width=1200"], ["Медовик", "Тонкие ароматные медовые коржи, пропитанные нежным сливочным кремом.", "2 000 ₸", "https://assets.zyrosite.com/cdn-cgi/image/format%3Dauto%2Cw%3D1920%2Cfit%3Dcrop/YleqwVMV5ktpPV8Q/viber_image_2025-02-26_10-08-49-613-Aq2q4VjJMNcOxoq5.jpg"], ["Наполеон", "Хрустящие слоёные коржи и нежный заварной крем.", "2 100 ₸", "https://v1.popcornnews.ru/k2/news/1200/upload/news/334916110712.png"], ["Шоколадный", "Насыщенный шоколадный бисквит и нежный крем.", "2 300 ₸", "https://restauranterafamar.com/wp-content/uploads/2024/06/rafamar-sept.jpg"], ["Молочная девочка", "Тонкие молочные коржи и лёгкий сливочный крем.", "2 000 ₸", "https://avatars.mds.yandex.net/get-vertis-journal/4469561/Tort_Molochnaya_devochka_s_tvorozhnym_kremom.jpg_1774282874019/1600x1600"], ["Прага", "Шоколадный бисквит, нежный крем и шоколадная глазурь.", "2 300 ₸", "https://povarbest.ru/wp-content/uploads/klassicheskij-tort-praga-po-gostu-053ecde.jpg"], ["Три шоколада", "Шоколадный бисквит и три воздушных слоя мусса из белого, молочного и тёмного шоколада.", "2 500 ₸", "https://gomagcdn.ro/domains2/livrarecadouri.ro/files/product/original/tort-trio-mousse-de-ciocolata-725738.png"], ["Фисташка-малина", "Нежный фисташковый бисквит, сливочный крем и ароматная малиновая начинка.", "2 500 ₸", "https://lovacakes.com/cdn/shop/files/AI_pistachio.jpg?v=1777679656"], ["Клубничный", "Воздушный бисквит, нежный сливочный крем и ароматная клубничная начинка.", "2 300 ₸", "https://cdn.shopaccino.com/joyful-treats/products/2024-aug-27-joyful-artisan-treats1187-147037073471950_l.jpg?v=704"], ["Сникерс", "Шоколадный бисквит, нежный крем, карамель и арахис.", "2 600 ₸", "https://kubnews.ru/upload/resize_cache/iblock/a04/1200_800_2/0l3iwxxxh511qkyjon5h2jsj7dg004qn.png"], ["Морковный", "Мягкие морковные коржи с пряными нотами и нежным сливочно-сырным кремом.", "2 200 ₸", "https://thebusybaker.ca/wp-content/uploads/2016/03/carrot-cake-with-cream-cheese-frosting-fb-ig-9-scaled.jpg"], ["Чёрный лес", "Шоколадный бисквит, нежный сливочный крем и сочная вишнёвая начинка.", "2 400 ₸", "https://cdn.zyrosite.com/cdn-cgi/image/format%3Dauto%2Cw%3D768%2Cfit%3Dscale-down/cdn-ecommerce/store_01JM5245N0KRF6FC01S95HKC20%2Fassets%2F1740687016668-schwarzwaelder-kirsch-torte.webp"], ["Манго-маракуйя", "Нежный бисквит и лёгкий крем с яркой тропической начинкой.", "2 500 ₸", "https://www.laroccatoronto.com/cdn/shop/files/300902_-_Mango_Passion_01_1080x.jpg?v=1740710608"], ["Орео", "Шоколадный бисквит, сливочный крем и хрустящее печенье «Орео».", "2 400 ₸", "https://www.grandmashotsauce.co.uk/cdn/shop/articles/IMG_0121_1200x1429.jpg?v=1617444785"], ["Ванильный с ягодами", "Воздушный ванильный бисквит, лёгкий сливочный крем и свежие ягоды.", "2 300 ₸", "https://i.etsystatic.com/19676475/r/il/084415/6766291238/il_fullxfull.6766291238_oj7m.jpg"]];
+
+const grid=document.getElementById("cakeGrid");
+grid.innerHTML=cakes.map((c,i)=>`
+  <article class="card">
+    <div class="cake-img"><img src="${c[3]}" alt="Торт «${c[0]}»" loading="lazy"></div>
+    <div class="card-body">
+      <h3>${i+1}. Торт «${c[0]}»</h3>
+      <p>${c[1]}</p>
+      <span class="price">${c[2]}</span><br>
+      <button class="btn" onclick="openModal('${c[0]}')">Заказать</button>
+    </div>
+  </article>
+`).join("");
+
+function openModal(name){
+ document.getElementById("modalTitle").textContent="Заказать: "+name;
+ document.getElementById("modal").classList.add("active");
+}
+function closeModal(){
+ document.getElementById("modal").classList.remove("active");
+}
+function submitOrder(e){
+ e.preventDefault();
+ alert("Спасибо! Заявка принята. Мы свяжемся с вами для уточнения заказа.");
+ closeModal();
+ e.target.reset();
+}
+document.getElementById("modal").addEventListener("click",e=>{
+ if(e.target.id==="modal") closeModal();
+});
+</script>
+</body>
+</html>
